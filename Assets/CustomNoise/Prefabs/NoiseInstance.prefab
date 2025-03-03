@@ -98,16 +98,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _noises:
-  - NoiseType: 0
+  - NoiseType: 2
     ProcessType: 2
-    Frequency: 10
-    RandomSeed: 0
+    Frequency: 1
+    RandomSeed: 1
+    Scale: 10
+    NoiseQuality: 1
+    Lacunarity: 0.25
+    OctaveCount: 3
+    Persistence: 0.75
+    Displacement: 0
+    EnableDistance: 0
+    PSpectralWeights: []
+  - NoiseType: 1
+    ProcessType: 6
+    Frequency: 2
+    RandomSeed: 1
     Scale: 1
     NoiseQuality: 1
-    Lacunarity: 2
-    OctaveCount: 6
-    Persistence: 0.5
-    Displacement: 0
+    Lacunarity: 0.25
+    OctaveCount: 3
+    Persistence: 0.75
+    Displacement: -5
+    EnableDistance: 0
+    PSpectralWeights: []
+  - NoiseType: 1
+    ProcessType: 0
+    Frequency: 1
+    RandomSeed: 1
+    Scale: 1
+    NoiseQuality: 1
+    Lacunarity: 0.25
+    OctaveCount: 3
+    Persistence: 0.75
+    Displacement: 1
     EnableDistance: 0
     PSpectralWeights: []
   _debugWidth: 1000
