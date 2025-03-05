@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-[RequireComponent(typeof(SpriteRenderer))]
 public class CustomNoise : MonoBehaviour
 {
 	[Header("Noise Parameters")]
@@ -22,6 +21,11 @@ public class CustomNoise : MonoBehaviour
 	private void Awake()
 	{
 		Init();
+
+		//Destoy debug texture
+		_spriteRenderer.sprite = null;
+		_spriteRenderer.enabled = false;
+		Destroy(_spriteRenderer);
 	}
 
 	private void Init()
@@ -99,9 +103,9 @@ public class CustomNoise : MonoBehaviour
 		}
 	}
 
-	private double GetValue(double pX, double pY, double pZ)
+	public float GetValue(float pX, float pY, float pZ)
 	{
-		double lValue = 1d;
+		float lValue = 1f;
 		Noise lNoise;
 		Module lModule;
 
@@ -116,25 +120,25 @@ public class CustomNoise : MonoBehaviour
 			switch (lNoise.ProcessType)
 			{
 				case EProcessType.ADD:
-					lValue = lValue + lModule.GetValue(pX, pY, pZ);
+					lValue = lValue + (float)lModule.GetValue(pX, pY, pZ);
 					break;
 				case EProcessType.SUBTRACT:
-					lValue = lValue - lModule.GetValue(pX, pY, pZ);
+					lValue = lValue - (float)lModule.GetValue(pX, pY, pZ);
 					break;
 				case EProcessType.MULTIPLY:
-					lValue *= lModule.GetValue(pX, pY, pZ);
+					lValue *= (float)lModule.GetValue(pX, pY, pZ);
 					break;
 				case EProcessType.DIVIDE:
-					lValue = lValue / lModule.GetValue(pX, pY, pZ);
+					lValue = lValue / (float)lModule.GetValue(pX, pY, pZ);
 					break;
 				case EProcessType.POWER:
-					lValue = MathF.Pow((float)lValue, (float)lModule.GetValue(pX, pY, pZ));
+					lValue = MathF.Pow(lValue, (float)lModule.GetValue(pX, pY, pZ));
 					break;
 				case EProcessType.MAX:
-					lValue = MathF.Max((float)lValue, (float)lModule.GetValue(pX, pY, pZ));
+					lValue = MathF.Max(lValue, (float)lModule.GetValue(pX, pY, pZ));
 					break;
 				case EProcessType.MIN:
-					lValue = MathF.Min((float)lValue, (float)lModule.GetValue(pX, pY, pZ));
+					lValue = MathF.Min(lValue, (float)lModule.GetValue(pX, pY, pZ));
 					break;
 				default:
 					break;
@@ -152,8 +156,7 @@ public class CustomNoise : MonoBehaviour
 
 		float lCoordX;
 		float lCoordY;
-		double lNoiseValue;
-		float lNormalizedValue;
+		float lNoiseValue;
 		Color lColor;
 
 		_texture = new Texture2D(_debugWidth, _debugHeight);
@@ -165,11 +168,9 @@ public class CustomNoise : MonoBehaviour
 				lCoordX = (float)x / _debugWidth;
 				lCoordY = (float)y / _debugHeight;
 
-				lNoiseValue = GetValue(lCoordX, lCoordY, 0f);
+				lNoiseValue = (float)(GetValue(lCoordX, lCoordY, 0f) + 1.0) / 2.0f;
 
-				lNormalizedValue = (float)(lNoiseValue + 1.0) / 2.0f;
-
-				lColor = new Color(lNormalizedValue, lNormalizedValue, lNormalizedValue);
+				lColor = new Color(lNoiseValue, lNoiseValue, lNoiseValue);
 
 				_texture.SetPixel(x, y, lColor);
 			}
@@ -193,18 +194,18 @@ public class Noise
 	public EProcessType ProcessType;
 
 	//COMMON
-	public double Frequency;
+	public float Frequency;
 	public bool RandomSeed = true;
 	public float Scale;
 
 	//EXCEPT VORONOI
 	public NoiseQuality NoiseQuality;
-	public double Lacunarity;
+	public float Lacunarity;
 	public int OctaveCount;
-	public double Persistence; //EXCEPT RIDGED
+	public float Persistence; //EXCEPT RIDGED
 
 	//VORONOI
-	public double Displacement;
+	public float Displacement;
 	public bool EnableDistance;
 
 	//RIDGED

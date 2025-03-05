@@ -1,5 +1,5 @@
+#if UNITY_EDITOR
 using System.Collections.Generic;
-using Unity.Properties;
 using UnityEditor;
 using UnityEngine;
 
@@ -146,3 +146,4 @@ public class NoisePropertyDrawer : PropertyDrawer
 		return EditorGUIUtility.singleLineHeight;
 	}
 }
+#endif
