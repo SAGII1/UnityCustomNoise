@@ -112,6 +112,18 @@ MonoBehaviour:
     PSpectralWeights: []
   - NoiseType: 1
     ProcessType: 6
+    Frequency: 3
+    RandomSeed: 1
+    Scale: 1
+    NoiseQuality: 1
+    Lacunarity: 0.25
+    OctaveCount: 3
+    Persistence: 0.75
+    Displacement: -1
+    EnableDistance: 0
+    PSpectralWeights: []
+  - NoiseType: 1
+    ProcessType: 0
     Frequency: 2
     RandomSeed: 1
     Scale: 1
@@ -119,20 +131,9 @@ MonoBehaviour:
     Lacunarity: 0.25
     OctaveCount: 3
     Persistence: 0.75
-    Displacement: -5
+    Displacement: 2
     EnableDistance: 0
     PSpectralWeights: []
-  - NoiseType: 1
-    ProcessType: 0
-    Frequency: 1
-    RandomSeed: 1
-    Scale: 1
-    NoiseQuality: 1
-    Lacunarity: 0.25
-    OctaveCount: 3
-    Persistence: 0.75
-    Displacement: 1
-    EnableDistance: 0
-    PSpectralWeights: []
+  _noiseValueRange: {x: 0, y: 1}
   _debugWidth: 1000
   _debugHeight: 1500

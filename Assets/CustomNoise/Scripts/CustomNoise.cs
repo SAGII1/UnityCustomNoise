@@ -9,6 +9,7 @@ public class CustomNoise : MonoBehaviour
 {
 	[Header("Noise Parameters")]
 	[SerializeField] private List<Noise> _noises;
+	[SerializeField] private Vector2 _noiseValueRange;
 
 	[Header("Debug Display")]
 	[SerializeField] private int _debugWidth;
@@ -145,7 +146,7 @@ public class CustomNoise : MonoBehaviour
 			}
 		}
 
-		return lValue;
+		return Mathf.Clamp(lValue, _noiseValueRange.x, _noiseValueRange.y);
 	}
 
 	public void DisplayNoise()
@@ -168,7 +169,7 @@ public class CustomNoise : MonoBehaviour
 				lCoordX = (float)x / _debugWidth;
 				lCoordY = (float)y / _debugHeight;
 
-				lNoiseValue = (float)(GetValue(lCoordX, lCoordY, 0f) + 1.0) / 2.0f;
+				lNoiseValue = GetValue(lCoordX, lCoordY, 0f);
 
 				lColor = new Color(lNoiseValue, lNoiseValue, lNoiseValue);
 
